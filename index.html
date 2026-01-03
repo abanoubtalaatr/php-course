@@ -1,0 +1,116 @@
+<!DOCTYPE html><html dir="rtl" lang="ar"><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>المصطلحات المهمة</title>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+<script src="https://d3js.org/d3.v7.min.js"></script>
+<script src="https://picture-search.skywork.ai/aippt/static/tailwindcss.com"></script><style>
+        body {overflow: hidden; width: 1280px; min-height: 720px; margin: 0;
+            padding: 0;
+            font-family: 'Arial', sans-serif;}
+        .slide {
+            width: 1280px;
+            min-height: 720px;
+            background: linear-gradient(135deg, #6B46C1 0%, #4A2D9A 100%);
+            color: white;
+            
+            position: relative;
+        }
+        .term-card {
+            background-color: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(5px);
+            border-radius: 16px;
+            transition: all 0.3s ease;
+            border-right: 5px solid rgba(255, 255, 255, 0.3);
+        }
+        .term-card:hover {
+            background-color: rgba(255, 255, 255, 0.2);
+            transform: translateX(-5px);
+        }
+        .term-icon {
+            background-color: rgba(255, 255, 255, 0.2);
+            height: 60px;
+            width: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 12px;
+            margin-left: 16px;
+        }
+        .php-logo {
+            position: absolute;
+            right: 30px;
+            bottom: 30px;
+            font-size: 2rem;
+            opacity: 0.2;
+        }
+        .highlight {
+            color: #9BD5FF;
+            font-weight: bold;
+        }
+    
+html {
+    overflow: hidden;
+}</style>
+</head>
+<body>
+<div class="slide p-10 flex flex-col" style=" overflow: hidden;">
+<!-- Header -->
+<div class="mb-4">
+<h1 class="text-5xl font-bold mb-2">المصطلحات المهمة</h1>
+<p class="text-xl text-gray-200">المفاهيم الأساسية لفهم بيئة PHP</p>
+</div>
+<!-- Terms Container -->
+<div class="flex flex-col space-y-4 flex-grow">
+<!-- Term 1: Open Source -->
+<div class="term-card p-4 flex items-center">
+<div class="term-icon">
+<i class="fas fa-unlock-alt text-3xl"></i>
+</div>
+<div>
+<h3 class="text-2xl font-bold mb-1">مفتوحة المصدر <span class="text-xl font-normal text-gray-300">(Open Source)</span></h3>
+<p class="text-xl">أي حد يقدر يستخدمها ويعدل عليها بدون ترخيص مدفوع</p>
+</div>
+</div>
+<!-- Term 2: Server-Side -->
+<div class="term-card p-4 flex items-center">
+<div class="term-icon">
+<i class="fas fa-server text-3xl"></i>
+</div>
+<div>
+<h3 class="text-2xl font-bold mb-1">سيرفر-سايد <span class="text-xl font-normal text-gray-300">(Server-Side)</span></h3>
+<p class="text-xl">الكود بيتنفذ على السيرفر قبل ما يوصل للمتصفح</p>
+</div>
+</div>
+<!-- Term 3: Dynamic -->
+<div class="term-card p-4 flex items-center">
+<div class="term-icon">
+<i class="fas fa-exchange-alt text-3xl"></i>
+</div>
+<div>
+<h3 class="text-2xl font-bold mb-1">ديناميكية <span class="text-xl font-normal text-gray-300">(Dynamic)</span></h3>
+<p class="text-xl">الصفحات بتتغير محتواها حسب البيانات أو المستخدم</p>
+</div>
+</div>
+<!-- Term 4: Community -->
+<div class="term-card p-4 flex items-center">
+<div class="term-icon">
+<i class="fas fa-users text-3xl"></i>
+</div>
+<div>
+<h3 class="text-2xl font-bold mb-1">مجتمع دعم كبير <span class="text-xl font-normal text-gray-300">(Community)</span></h3>
+<p class="text-xl">ملايين المطورين بيستخدموها وبيساعدوا بعض</p>
+</div>
+</div>
+</div>
+<!-- PHP Logo Watermark -->
+<div class="php-logo">
+<i class="fab fa-php"></i>
+</div>
+<!-- Slide number -->
+<div class="absolute bottom-4 left-4 bg-white bg-opacity-20 px-3 py-1 rounded-full" style="visibility: hidden;">
+<span class="text-sm">5/5</span>
+</div>
+</div>
+
+</body></html>

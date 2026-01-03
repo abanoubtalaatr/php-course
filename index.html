@@ -1,116 +1,450 @@
-<!DOCTYPE html><html dir="rtl" lang="ar"><head>
-<meta charset="utf-8">
-<meta content="width=device-width, initial-scale=1.0" name="viewport">
-<title>المصطلحات المهمة</title>
-<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
-<script src="https://d3js.org/d3.v7.min.js"></script>
-<script src="https://picture-search.skywork.ai/aippt/static/tailwindcss.com"></script><style>
-        body {overflow: hidden; width: 1280px; min-height: 720px; margin: 0;
-            padding: 0;
-            font-family: 'Arial', sans-serif;}
-        .slide {
-            width: 1280px;
-            min-height: 720px;
-            background: linear-gradient(135deg, #6B46C1 0%, #4A2D9A 100%);
-            color: white;
-            
-            position: relative;
-        }
-        .term-card {
-            background-color: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(5px);
-            border-radius: 16px;
-            transition: all 0.3s ease;
-            border-right: 5px solid rgba(255, 255, 255, 0.3);
-        }
-        .term-card:hover {
-            background-color: rgba(255, 255, 255, 0.2);
-            transform: translateX(-5px);
-        }
-        .term-icon {
-            background-color: rgba(255, 255, 255, 0.2);
-            height: 60px;
-            width: 60px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border-radius: 12px;
-            margin-left: 16px;
-        }
-        .php-logo {
-            position: absolute;
-            right: 30px;
-            bottom: 30px;
-            font-size: 2rem;
-            opacity: 0.2;
-        }
-        .highlight {
-            color: #9BD5FF;
-            font-weight: bold;
-        }
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+  <meta charset="UTF-8" />
+  <title>عرض PHP - صفحة واحدة</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    :root {
+      --primary-color: #3498db;
+      --secondary-color: #2c3e50;
+      --accent-color: #9b59b6;
+      --dark-bg: #121212;
+      --darker-bg: #0a0a0a;
+      --card-bg: #1a1a1a;
+      --text-color: #f5f5f5;
+      --text-secondary: #b0b0b0;
+      --shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+      --transition: all 0.3s ease;
+      --border-radius: 12px;
+    }
     
-html {
-    overflow: hidden;
-}</style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    body {
+      background: linear-gradient(135deg, var(--darker-bg), var(--dark-bg));
+      color: var(--text-color);
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      padding: 20px;
+      min-height: 100vh;
+      direction: rtl;
+      text-align: right;
+      overflow-x: hidden;
+    }
+    
+    .container {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+    
+    header {
+      text-align: center;
+      margin-bottom: 30px;
+      padding-bottom: 20px;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+    
+    h1 {
+      color: var(--primary-color);
+      font-size: 2.5rem;
+      margin-bottom: 10px;
+      background: linear-gradient(to right, var(--primary-color), var(--accent-color));
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      display: inline-block;
+    }
+    
+    .subtitle {
+      color: var(--text-secondary);
+      font-size: 1.1rem;
+      margin-bottom: 10px;
+    }
+    
+    .progress-container {
+      width: 100%;
+      height: 8px;
+      background-color: rgba(255, 255, 255, 0.1);
+      border-radius: 4px;
+      margin: 20px 0 30px;
+      overflow: hidden;
+    }
+    
+    .progress-bar {
+      height: 100%;
+      width: 20%;
+      background: linear-gradient(to right, var(--primary-color), var(--accent-color));
+      border-radius: 4px;
+      transition: var(--transition);
+    }
+    
+    .slides-container {
+      position: relative;
+      min-height: 400px;
+      margin-bottom: 40px;
+    }
+    
+    .content-section {
+      display: none;
+      background-color: var(--card-bg);
+      border-radius: var(--border-radius);
+      padding: 35px;
+      box-shadow: var(--shadow);
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      position: absolute;
+      width: 100%;
+      top: 0;
+      right: 0;
+      opacity: 0;
+      transform: translateX(20px);
+      transition: opacity 0.5s ease, transform 0.5s ease;
+    }
+    
+    .content-section.active {
+      display: block;
+      opacity: 1;
+      transform: translateX(0);
+      position: relative;
+    }
+    
+    h2 {
+      color: var(--primary-color);
+      font-size: 1.8rem;
+      margin-bottom: 20px;
+      padding-bottom: 10px;
+      border-bottom: 2px solid rgba(52, 152, 219, 0.3);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    
+    h2 i {
+      color: var(--accent-color);
+    }
+    
+    p, li {
+      line-height: 1.7;
+      color: var(--text-color);
+      margin-bottom: 15px;
+    }
+    
+    ul {
+      list-style-type: none;
+      padding-right: 0;
+    }
+    
+    li {
+      padding: 10px 0 10px 40px;
+      position: relative;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+    }
+    
+    li:before {
+      content: "✓";
+      position: absolute;
+      right: -25px;
+      top: 10px;
+      width: 22px;
+      height: 22px;
+      background-color: var(--primary-color);
+      color: white;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 14px;
+    }
+    
+    .highlight {
+      background-color: rgba(52, 152, 219, 0.1);
+      padding: 12px 20px;
+      border-radius: 8px;
+      border-right: 4px solid var(--primary-color);
+      margin: 20px 0;
+    }
+    
+    .controls {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 30px;
+    }
+    
+    .nav-btn {
+      background: linear-gradient(to left, var(--primary-color), var(--accent-color));
+      color: white;
+      border: none;
+      padding: 14px 30px;
+      border-radius: 50px;
+      cursor: pointer;
+      font-size: 1rem;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      transition: var(--transition);
+      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    }
+    
+    .nav-btn:hover:not(:disabled) {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+    }
+    
+    .nav-btn:active:not(:disabled) {
+      transform: translateY(-1px);
+    }
+    
+    .nav-btn:disabled {
+      background: linear-gradient(to left, #555, #777);
+      cursor: not-allowed;
+      opacity: 0.6;
+      transform: none;
+      box-shadow: none;
+    }
+    
+    .slide-indicators {
+      display: flex;
+      gap: 8px;
+    }
+    
+    .indicator {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background-color: rgba(255, 255, 255, 0.2);
+      cursor: pointer;
+      transition: var(--transition);
+    }
+    
+    .indicator.active {
+      background-color: var(--primary-color);
+      transform: scale(1.2);
+    }
+    
+    footer {
+      text-align: center;
+      margin-top: 40px;
+      color: var(--text-secondary);
+      font-size: 0.9rem;
+      padding-top: 20px;
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+    }
+    
+    @media (max-width: 768px) {
+      .container {
+        padding: 10px;
+      }
+      
+      h1 {
+        font-size: 2rem;
+      }
+      
+      .content-section {
+        padding: 25px 20px;
+      }
+      
+      .nav-btn {
+        padding: 12px 20px;
+        font-size: 0.9rem;
+      }
+    }
+    
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    
+    .content-section p, .content-section li, .content-section .highlight {
+      animation: fadeIn 0.5s ease forwards;
+    }
+    
+    .content-section li:nth-child(1) { animation-delay: 0.1s; }
+    .content-section li:nth-child(2) { animation-delay: 0.2s; }
+    .content-section li:nth-child(3) { animation-delay: 0.3s; }
+    .content-section li:nth-child(4) { animation-delay: 0.4s; }
+    .content-section li:nth-child(5) { animation-delay: 0.5s; }
+    
+    .php-logo {
+      display: inline-block;
+      background-color: #8892BF;
+      color: white;
+      font-weight: bold;
+      padding: 5px 12px;
+      border-radius: 6px;
+      margin: 0 5px;
+      font-family: monospace;
+    }
+  </style>
 </head>
 <body>
-<div class="slide p-10 flex flex-col" style=" overflow: hidden;">
-<!-- Header -->
-<div class="mb-4">
-<h1 class="text-5xl font-bold mb-2">المصطلحات المهمة</h1>
-<p class="text-xl text-gray-200">المفاهيم الأساسية لفهم بيئة PHP</p>
-</div>
-<!-- Terms Container -->
-<div class="flex flex-col space-y-4 flex-grow">
-<!-- Term 1: Open Source -->
-<div class="term-card p-4 flex items-center">
-<div class="term-icon">
-<i class="fas fa-unlock-alt text-3xl"></i>
-</div>
-<div>
-<h3 class="text-2xl font-bold mb-1">مفتوحة المصدر <span class="text-xl font-normal text-gray-300">(Open Source)</span></h3>
-<p class="text-xl">أي حد يقدر يستخدمها ويعدل عليها بدون ترخيص مدفوع</p>
-</div>
-</div>
-<!-- Term 2: Server-Side -->
-<div class="term-card p-4 flex items-center">
-<div class="term-icon">
-<i class="fas fa-server text-3xl"></i>
-</div>
-<div>
-<h3 class="text-2xl font-bold mb-1">سيرفر-سايد <span class="text-xl font-normal text-gray-300">(Server-Side)</span></h3>
-<p class="text-xl">الكود بيتنفذ على السيرفر قبل ما يوصل للمتصفح</p>
-</div>
-</div>
-<!-- Term 3: Dynamic -->
-<div class="term-card p-4 flex items-center">
-<div class="term-icon">
-<i class="fas fa-exchange-alt text-3xl"></i>
-</div>
-<div>
-<h3 class="text-2xl font-bold mb-1">ديناميكية <span class="text-xl font-normal text-gray-300">(Dynamic)</span></h3>
-<p class="text-xl">الصفحات بتتغير محتواها حسب البيانات أو المستخدم</p>
-</div>
-</div>
-<!-- Term 4: Community -->
-<div class="term-card p-4 flex items-center">
-<div class="term-icon">
-<i class="fas fa-users text-3xl"></i>
-</div>
-<div>
-<h3 class="text-2xl font-bold mb-1">مجتمع دعم كبير <span class="text-xl font-normal text-gray-300">(Community)</span></h3>
-<p class="text-xl">ملايين المطورين بيستخدموها وبيساعدوا بعض</p>
-</div>
-</div>
-</div>
-<!-- PHP Logo Watermark -->
-<div class="php-logo">
-<i class="fab fa-php"></i>
-</div>
-<!-- Slide number -->
-<div class="absolute bottom-4 left-4 bg-white bg-opacity-20 px-3 py-1 rounded-full" style="visibility: hidden;">
-<span class="text-sm">5/5</span>
-</div>
-</div>
+  <div class="container">
+    <header>
+      <h1><i class="fas fa-code"></i> عرض تعريفي عن لغة PHP</h1>
+      <p class="subtitle">لغة البرمجة الأكثر شيوعًا لتطوير تطبيقات الويب</p>
+      
+      <div class="progress-container">
+        <div class="progress-bar" id="progressBar"></div>
+      </div>
+    </header>
+    
+    <div class="slides-container">
+      <div id="slide1" class="content-section active">
+        <h2><i class="fas fa-question-circle"></i> ما هي لغة PHP؟</h2>
+        <p><span class="php-logo">PHP</span> هي اختصار لـ <strong>Hypertext Preprocessor</strong>، وهي لغة برمجة نصية مفتوحة المصممة خصيصًا لتطوير تطبيقات الويب.</p>
+        
+        <div class="highlight">
+          <p><i class="fas fa-server"></i> <strong>سيرفر-سايد:</strong> يتم تنفيذ الكود على الخادم قبل إرسال النتائج إلى متصفح المستخدم.</p>
+        </div>
+        
+        <p>تعتبر PHP مناسبة جدًا لتطوير المواقع الديناميكية وتطبيقات الويب المعقدة وإنشاء واجهات برمجة التطبيقات (APIs).</p>
+        
+        <p>تتميز بسهولة دمجها مع قواعد البيانات وخاصة MySQL، مما يجعلها الخيار الأمثل للعديد من تطبيقات الويب.</p>
+      </div>
 
-</body></html>
+      <div id="slide2" class="content-section">
+        <h2><i class="fas fa-check-circle"></i> لماذا نستخدم PHP؟</h2>
+        <ul>
+          <li>إنشاء مواقع ويب ديناميكية وتفاعلية بسهولة وسرعة</li>
+          <li>بناء APIs لتطبيقات الموبايل والمواقع الأخرى</li>
+          <li>التعامل بكفاءة مع قواعد البيانات (MySQL, PostgreSQL, SQLite)</li>
+          <li>إدارة الخادم: رفع ملفات، إرسال بريد إلكتروني، معالجة الصور، إدارة جلسات المستخدمين</li>
+          <li>تكامل سهل مع HTML، CSS، وجافا سكريبت</li>
+          <li>دعم ممتاز لأنظمة إدارة المحتوى مثل WordPress</li>
+        </ul>
+      </div>
+
+      <div id="slide3" class="content-section">
+        <h2><i class="fas fa-star"></i> مميزات PHP</h2>
+        <ul>
+          <li>سهلة التعلم للمبتدئين مع بناء جملة بسيط وواضح</li>
+          <li>مرنة وتعمل على أي نظام تشغيل (Windows, Linux, macOS)</li>
+          <li>متوافقة مع معظم أنظمة قواعد البيانات الشهيرة</li>
+          <li>مفتوحة المصدر مع مجتمع دعم ضخم وموارد تعليمية وفيرة</li>
+          <li>أداء عالي مع إصدارات PHP الحديثة (7.x وما فوق)</li>
+          <li>إطار عمل قوية مثل Laravel وSymfony لبناء تطبيقات معقدة</li>
+        </ul>
+      </div>
+
+      <div id="slide4" class="content-section">
+        <h2><i class="fas fa-history"></i> تاريخ PHP</h2>
+        <p>ظهرت PHP أول مرة في عام 1995 على يد المطور <strong>Rasmus Lerdorf</strong>.</p>
+        
+        <div class="highlight">
+          <p>بدأت كمجموعة بسيطة من البرامج النصية مكتوبة بلغة Perl لتتبع زوار موقع السيرة الذاتية الخاص بـ Lerdorf.</p>
+        </div>
+        
+        <p>تطورت لتصبح لغة برمجة كاملة وقوية لمواقع الويب والتطبيقات الكبيرة.</p>
+        <p>لا تزال مستخدمة حتى اليوم على نطاق واسع في أنظمة إدارة المحتوى مثل <strong>WordPress</strong> و<strong>Drupal</strong> و<strong>Joomla</strong>.</p>
+        <p>تشير الإحصائيات إلى أن PHP تستخدم في أكثر من 78% من جميع مواقع الويب التي تستخدم لغة برمجة من جانب الخادم.</p>
+      </div>
+
+      <div id="slide5" class="content-section">
+        <h2><i class="fas fa-book"></i> مصطلحات مهمة في عالم PHP</h2>
+        <ul>
+          <li><strong>مفتوحة المصدر:</strong> أي شخص يمكنه استخدامها وتعديلها وتوزيعها بدون ترخيص مدفوع</li>
+          <li><strong>سيرفر-سايد:</strong> الكود يتم تنفيذه على الخادم قبل إرساله إلى متصفح المستخدم</li>
+          <li><strong>ديناميكية:</strong> الصفحات التي يتغير محتواها حسب البيانات أو المستخدم أو الظروف</li>
+          <li><strong>إطار العمل (Framework):</strong> مجموعة من الأدوات والمكتبات التي تسرع عملية التطوير (مثل Laravel)</li>
+          <li><strong>مجتمع دعم كبير:</strong> ملايين المطورين حول العالم يستخدمونها ويتبادلون المعرفة</li>
+          <li><strong>CMS:</strong> نظام إدارة المحتوى الذي يمكن من خلاله إنشاء مواقع وتعديلها بسهولة</li>
+        </ul>
+        
+        <div class="highlight">
+          <p><i class="fas fa-lightbulb"></i> <strong>نصيحة:</strong> PHP هي خيار ممتاز للبدء في تعلم برمجة الويب بسبب بساطتها وانتشارها الواسع.</p>
+        </div>
+      </div>
+    </div>
+    
+    <div class="controls">
+      <button id="prevBtn" class="nav-btn" onclick="changeSlide(-1)" disabled>
+        <i class="fas fa-arrow-right"></i> السابق
+      </button>
+      
+      <div class="slide-indicators">
+        <div class="indicator active" onclick="goToSlide(1)"></div>
+        <div class="indicator" onclick="goToSlide(2)"></div>
+        <div class="indicator" onclick="goToSlide(3)"></div>
+        <div class="indicator" onclick="goToSlide(4)"></div>
+        <div class="indicator" onclick="goToSlide(5)"></div>
+      </div>
+      
+      <button id="nextBtn" class="nav-btn" onclick="changeSlide(1)">
+        التالي <i class="fas fa-arrow-left"></i>
+      </button>
+    </div>
+    
+    <footer>
+      <p>عرض تعريفي عن PHP | تصميم بتقنيات HTML5, CSS3, JavaScript</p>
+      <p>جميع الحقوق محفوظة &copy; 2023</p>
+    </footer>
+  </div>
+
+  <script>
+    let current = 1;
+    const total = 5;
+
+    function updateUI() {
+      // تحديث شريط التقدم
+      const progressPercent = (current / total) * 100;
+      document.getElementById('progressBar').style.width = `${progressPercent}%`;
+      
+      // تحديث أزرار التنقل
+      document.getElementById('prevBtn').disabled = (current === 1);
+      document.getElementById('nextBtn').disabled = (current === total);
+      
+      // تحديد المؤشرات النشطة
+      document.querySelectorAll('.indicator').forEach((indicator, index) => {
+        if (index + 1 === current) {
+          indicator.classList.add('active');
+        } else {
+          indicator.classList.remove('active');
+        }
+      });
+    }
+
+    function changeSlide(direction) {
+      // إخفاء الشريحة الحالية
+      const currentSlide = document.getElementById('slide' + current);
+      currentSlide.classList.remove('active');
+      
+      // الانتقال إلى الشريحة الجديدة
+      current += direction;
+      const newSlide = document.getElementById('slide' + current);
+      newSlide.classList.add('active');
+      
+      // تحديث واجهة المستخدم
+      updateUI();
+    }
+
+    function goToSlide(slideNumber) {
+      if (slideNumber === current) return;
+      
+      document.getElementById('slide' + current).classList.remove('active');
+      current = slideNumber;
+      document.getElementById('slide' + current).classList.add('active');
+      
+      updateUI();
+    }
+
+    // التهيئة الأولية
+    document.addEventListener('DOMContentLoaded', function() {
+      updateUI();
+      
+      // إضافة التحكم بواسطة لوحة المفاتيح
+      document.addEventListener('keydown', function(e) {
+        if (e.key === 'ArrowRight' && current > 1) {
+          changeSlide(-1);
+        } else if (e.key === 'ArrowLeft' && current < total) {
+          changeSlide(1);
+        }
+      });
+    });
+  </script>
+</body>
+</html>
